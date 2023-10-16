@@ -1,26 +1,65 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <title>Socket.io Demo</title>
-      <meta charset="utf-8">
-		<link rel="stylesheet" href="styles.css">
-   </head>
-   <body>
-		 <h1>Socket.io Demo</h1>	 
-		 <p id="buttonCount">The button has been clicked 0 times.</p>
-		 <button onclick="buttonClicked()">Click me</button>
-		 <script src="/socket.io/socket.io.js"></script>
-		 <script>
-			 var socket = io.connect();
-			 
-			 function buttonClicked(){
-			   socket.emit('clicked');
-			 }
-			 
-			 //when we receive numClients, do this
-			 socket.on('buttonUpdate', function(data){
-				 document.getElementById("buttonCount").innerHTML = 'The button has been clicked ' + data + ' times.';
-			 });
-		</script>
-   </body>
+
+<head>
+	<title>Socket.io Demo</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+	<h1>Socket.io Demo</h1>
+	<p id="buttonCount">The button has been clicked 0 times.</p>
+	<button onclick="buttonClicked()">Click me</button>
+	<script src="/socket.io/socket.io.js"></script>
+
+	<script>
+		var options = {
+			series: [{
+				name: "Desktops",
+				data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+			}],
+			chart: {
+				height: 350,
+				type: 'line',
+				zoom: {
+					enabled: false
+				}
+			},
+			dataLabels: {
+				enabled: false
+			},
+			stroke: {
+				curve: 'straight'
+			},
+			title: {
+				text: 'Product Trends by Month',
+				align: 'left'
+			},
+			grid: {
+				row: {
+					colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+					opacity: 0.5
+				},
+			},
+			xaxis: {
+				categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+			}
+		};
+
+		var chart = new ApexCharts(document.querySelector("#chart"), options);
+		chart.render();
+		var socket = io.connect();
+
+		function buttonClicked() {
+			socket.emit('clicked');
+		}
+
+		//when we receive numClients, do this
+		socket.on('buttonUpdate', function (data) {
+			document.getElementById("buttonCount").innerHTML = 'The button has been clicked ' + data + ' times.';
+		});
+	</script>
+</body>
+
 </html>

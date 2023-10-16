@@ -9,7 +9,12 @@
   "author": "Andrew Errity",
   "license": "ISC",
   "dependencies": {
+    "@supabase/supabase-js": "^2.36.0",
+    "apexcharts": "^3.42.0",
+    "cors": "^2.8.5",
     "express": "^4.15.2",
+    "firebase-admin": "^11.10.1",
+    "net": "^1.0.2",
     "socket.io": "^1.7.3"
   }
 }
